@@ -76,6 +76,7 @@ class GameScene: SKScene {
     
     func initialize() {
         
+        self.backgroundColor = UIColor.black
         frameWidth = frame.size.width
         frameHeight = frame.size.height
         createCity()
@@ -168,6 +169,14 @@ class GameScene: SKScene {
         addChild(gameOverLayer)
     }
     
+    func saveScore() {
+        
+        if let bestScore = ScoreManager.instance.getBestScore() {
+            if bestScore < scoreNumber {
+                ScoreManager.instance.setBestScore(bestScore: scoreNumber)
+            }
+        }
+    }
     
 }
 
@@ -192,7 +201,7 @@ extension GameScene: SKPhysicsContactDelegate {
                     child.removeFromParent()
                 }
             }
-            
+            saveScore()
             createGameOverLayer()
         }
         

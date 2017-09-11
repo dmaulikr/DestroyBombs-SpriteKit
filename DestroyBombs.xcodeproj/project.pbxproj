@@ -18,6 +18,8 @@
 		DEA07C271F65BBC700F5EE9C /* BombTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA07C261F65BBC700F5EE9C /* BombTwo.swift */; };
 		DEA07C2A1F65BF2500F5EE9C /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA07C291F65BF2500F5EE9C /* City.swift */; };
 		DEF241031F66FC7F009EC046 /* GameOverLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF241021F66FC7F009EC046 /* GameOverLayer.swift */; };
+		DEF241051F6709C0009EC046 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF241041F6709C0009EC046 /* MenuScene.swift */; };
+		DEF241071F6710D4009EC046 /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF241061F6710D4009EC046 /* ScoreManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		DEA07C261F65BBC700F5EE9C /* BombTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BombTwo.swift; sourceTree = "<group>"; };
 		DEA07C291F65BF2500F5EE9C /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		DEF241021F66FC7F009EC046 /* GameOverLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverLayer.swift; sourceTree = "<group>"; };
+		DEF241041F6709C0009EC046 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		DEF241061F6710D4009EC046 /* ScoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 				DEA07C151F6585FD00F5EE9C /* LaunchScreen.storyboard */,
 				DEA07C181F6585FD00F5EE9C /* Info.plist */,
 				DEF241021F66FC7F009EC046 /* GameOverLayer.swift */,
+				DEF241041F6709C0009EC046 /* MenuScene.swift */,
 			);
 			path = DestroyBombs;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				DEA07C241F65BB6300F5EE9C /* SharedConstants.swift */,
+				DEF241061F6710D4009EC046 /* ScoreManager.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -196,7 +202,9 @@
 			files = (
 				DEA07C0D1F6585FD00F5EE9C /* GameScene.swift in Sources */,
 				DEF241031F66FC7F009EC046 /* GameOverLayer.swift in Sources */,
+				DEF241071F6710D4009EC046 /* ScoreManager.swift in Sources */,
 				DEA07C251F65BB6300F5EE9C /* SharedConstants.swift in Sources */,
+				DEF241051F6709C0009EC046 /* MenuScene.swift in Sources */,
 				DEA07C271F65BBC700F5EE9C /* BombTwo.swift in Sources */,
 				DEA07C0F1F6585FD00F5EE9C /* GameViewController.swift in Sources */,
 				DEA07C221F65BADD00F5EE9C /* BombOne.swift in Sources */,
