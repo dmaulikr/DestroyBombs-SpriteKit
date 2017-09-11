@@ -14,6 +14,8 @@ class GameScene: SKScene {
     var frameWidth : CGFloat = 0.0
     var frameHeight : CGFloat = 0.0
     var scoreNumber: Int = 0
+    var scoreLabel = SKLabelNode()
+    var gameOverLayer = GameOverLayer()
     
     override func didMove(to view: SKView) {
         
@@ -35,20 +37,37 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             let nodeAtLocation = atPoint(location)
+            let gameOverLocation = touch.location(in: gameOverLayer)
             
+            // This part handles touches on GameScene
             if let rectNode = atPoint(location).name {
                 
                 if rectNode == "BombOne" {
                     scoreNumber += 1
+                    scoreLabel.text = "Score: \(scoreNumber)"
                     nodeAtLocation.removeFromParent()
                 }
 
                 else if rectNode == "BombTwo" {
                     scoreNumber += 2
+                    scoreLabel.text = "Score: \(scoreNumber)"
                     nodeAtLocation.removeFromParent()
                 }
                 
             }
+            
+            // This part handles touches on GameOverLayer
+            
+            if let gameOverNode = atPoint(gameOverLocation).name {
+                
+                if gameOverNode == "RetryButton" {
+                    let newScene = GameScene(size: self.size)
+                    newScene.scaleMode = .aspectFill
+                    let animation = SKTransition.crossFade(withDuration: 1.0)
+                    self.view?.presentScene(newScene, transition: animation)
+                }
+            }
+
             
         }
         
@@ -77,6 +96,14 @@ class GameScene: SKScene {
     
     func createScore() {
         
+        scoreLabel.position = CGPoint(x: 15, y: frameHeight - 30 )
+        scoreLabel.fontSize = 25
+        scoreLabel.zPosition = 5
+        scoreLabel.name = "Score"
+        scoreLabel.text = "Score: \(scoreNumber)"
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.fontName = "Courier-Bold"
+        addChild(scoreLabel)
     }
     
     
@@ -128,15 +155,17 @@ class GameScene: SKScene {
         self.addChild(bombTwo)
     }
     
-    func gameOverLabel() {
+    
+    func createGameOverLayer() {
         
-        let gameOver = SKLabelNode(text: "GAME OVER")
-        gameOver.position = CGPoint(x: frameWidth / 2, y: frameHeight / 2)
-        gameOver.zPosition = 5
-        gameOver.fontSize = 25
-        gameOver.fontName = "Courier-Bold"
-        gameOver.name = "GameOver"
-        self.addChild(gameOver)
+        let gameOverBackgroundColor = UIColor.black.withAlphaComponent(0.4)
+        gameOverLayer.size = frame.size
+        gameOverLayer.color = gameOverBackgroundColor
+        gameOverLayer.displayGameOverLayer(scoreNumber)
+        gameOverLayer.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        gameOverLayer.position = CGPoint(x: 0.0, y: 0.0)
+        gameOverLayer.zPosition = 7
+        addChild(gameOverLayer)
     }
     
     
@@ -157,16 +186,14 @@ extension GameScene: SKPhysicsContactDelegate {
             secondBody = contact.bodyA
         }
         if firstBody.node?.name == "BombOne" || firstBody.node?.name == "BombTwo" && secondBody.node?.name == "City" {
-            print("dodoir")
             self.removeAllActions()
             for child in self.children {
                 if child.name == "BombOne" || child.name == "BombTwo" {
                     child.removeFromParent()
-                    gameOverLabel()
                 }
             }
             
-            
+            createGameOverLayer()
         }
         
     }

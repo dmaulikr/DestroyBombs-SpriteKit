@@ -17,6 +17,7 @@
 		DEA07C251F65BB6300F5EE9C /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA07C241F65BB6300F5EE9C /* SharedConstants.swift */; };
 		DEA07C271F65BBC700F5EE9C /* BombTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA07C261F65BBC700F5EE9C /* BombTwo.swift */; };
 		DEA07C2A1F65BF2500F5EE9C /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA07C291F65BF2500F5EE9C /* City.swift */; };
+		DEF241031F66FC7F009EC046 /* GameOverLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF241021F66FC7F009EC046 /* GameOverLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		DEA07C241F65BB6300F5EE9C /* SharedConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
 		DEA07C261F65BBC700F5EE9C /* BombTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BombTwo.swift; sourceTree = "<group>"; };
 		DEA07C291F65BF2500F5EE9C /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		DEF241021F66FC7F009EC046 /* GameOverLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				DEA07C131F6585FD00F5EE9C /* Assets.xcassets */,
 				DEA07C151F6585FD00F5EE9C /* LaunchScreen.storyboard */,
 				DEA07C181F6585FD00F5EE9C /* Info.plist */,
+				DEF241021F66FC7F009EC046 /* GameOverLayer.swift */,
 			);
 			path = DestroyBombs;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEA07C0D1F6585FD00F5EE9C /* GameScene.swift in Sources */,
+				DEF241031F66FC7F009EC046 /* GameOverLayer.swift in Sources */,
 				DEA07C251F65BB6300F5EE9C /* SharedConstants.swift in Sources */,
 				DEA07C271F65BBC700F5EE9C /* BombTwo.swift in Sources */,
 				DEA07C0F1F6585FD00F5EE9C /* GameViewController.swift in Sources */,
@@ -365,6 +369,7 @@
 				DEA07C1D1F6585FD00F5EE9C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
