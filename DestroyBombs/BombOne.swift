@@ -15,9 +15,11 @@ class BombOne : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init() {
-        let texture = SKTexture(imageNamed: "BombOne")
+    init(textureAtlas: SKTextureAtlas) {
+        
+        let texture = textureAtlas.textureNamed("BombOne")
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        
         physicsBody = SKPhysicsBody(rectangleOf: size)
         physicsBody?.isDynamic = true
         physicsBody?.categoryBitMask = PhysicsCategory.Bomb

@@ -16,9 +16,11 @@ class City : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init() {
-        let texture = SKTexture(imageNamed: "City")
+    init(textureAtlas: SKTextureAtlas) {
+        
+        let texture = textureAtlas.textureNamed("City")
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        
         physicsBody = SKPhysicsBody(rectangleOf: size)
         physicsBody?.affectedByGravity = false
         physicsBody?.categoryBitMask = PhysicsCategory.City

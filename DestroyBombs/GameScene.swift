@@ -16,6 +16,7 @@ class GameScene: SKScene {
     var scoreNumber: Int = 0
     var scoreLabel = SKLabelNode()
     var gameOverLayer = GameOverLayer()
+    let textureAtlas = SKTextureAtlas(named: "Sprites.atlas")
     
     override func didMove(to view: SKView) {
         
@@ -46,12 +47,14 @@ class GameScene: SKScene {
                     scoreNumber += 1
                     scoreLabel.text = "Score: \(scoreNumber)"
                     nodeAtLocation.removeFromParent()
+                    createSparkEffect(position: location, sparkName: "BombOne")
                 }
 
                 else if rectNode == "BombTwo" {
                     scoreNumber += 2
                     scoreLabel.text = "Score: \(scoreNumber)"
                     nodeAtLocation.removeFromParent()
+                    createSparkEffect(position: location, sparkName: "BombTwo")
                 }
                 
             }
@@ -86,7 +89,8 @@ class GameScene: SKScene {
     }
     
     func createCity() {
-        let city = City()
+        
+        let city = City(textureAtlas: textureAtlas)
         city.position = CGPoint(x: frameWidth / 2.0 , y: 0)
         city.size.width = frameWidth
         city.anchorPoint = CGPoint(x: 0.5, y: 0)
@@ -130,12 +134,17 @@ class GameScene: SKScene {
     
     func addBombOne(xPosition: CGFloat) {
         
-        let bombOne = BombOne()
-        var bombDuration: TimeInterval = 2.0
+        let bombOne = BombOne(textureAtlas: textureAtlas)
+        var bombDuration: TimeInterval = 2.2
         bombOne.position = CGPoint(x: xPosition, y: self.frame.height)
         bombOne.name = "BombOne"
         bombOne.zPosition = 5
         bombOne.anchorPoint = CGPoint(x: 0.5, y: 0)
+
+        
+        if scoreNumber > 20 {
+            bombDuration = 1.8
+        }
         
         let actionMove = SKAction.moveTo(y: 0, duration: bombDuration)
         bombOne.run(actionMove)
@@ -144,18 +153,49 @@ class GameScene: SKScene {
     
     func addBombTwo(xPosition: CGFloat) {
         
-        let bombTwo = BombTwo()
+        let bombTwo = BombTwo(textureAtlas: textureAtlas)
         var bombDuration: TimeInterval = 1.7
+        var newX: CGFloat = 0
+        var angle: CGFloat = 0
+        
         bombTwo.position = CGPoint(x: xPosition, y: self.frame.height)
         bombTwo.name = "BombTwo"
         bombTwo.zPosition = 5
         bombTwo.anchorPoint = CGPoint(x: 0.5, y: 0)
         
-        let actionMove = SKAction.moveTo(y: 0, duration: bombDuration)
+        if xPosition <= frameWidth / 2 {
+            newX = xPosition + (frameWidth / 2)
+            angle = atan2(frameHeight - 100, newX)
+            bombTwo.zRotation = angle
+            
+        }
+        else {
+            newX = xPosition - (frameWidth / 2)
+            angle = atan2(frameHeight - 100, newX)
+            bombTwo.zRotation = angle - 90
+        }
+        
+        if scoreNumber > 20 {
+            bombDuration = 1.5
+        }
+        
+        let actionMove = SKAction.move(to: CGPoint(x: newX, y: 0), duration: bombDuration)
         bombTwo.run(actionMove)
         self.addChild(bombTwo)
     }
     
+    func createSparkEffect(position: CGPoint, sparkName: String) {
+        
+        let spark: SKEmitterNode?
+        let sparkPath = Bundle.main.path(forResource: sparkName, ofType: "sks")
+        spark =  NSKeyedUnarchiver.unarchiveObject(withFile: sparkPath!) as? SKEmitterNode
+        spark?.zPosition = 5
+        spark?.position = position
+        addChild(spark!)
+        let removeSpark = SKAction.sequence([SKAction.wait(forDuration: 1.5), SKAction.removeFromParent()])
+        spark?.run(removeSpark)
+        
+    }
     
     func createGameOverLayer() {
         
@@ -197,12 +237,21 @@ extension GameScene: SKPhysicsContactDelegate {
         if firstBody.node?.name == "BombOne" || firstBody.node?.name == "BombTwo" && secondBody.node?.name == "City" {
             self.removeAllActions()
             for child in self.children {
-                if child.name == "BombOne" || child.name == "BombTwo" {
+                if child.name == "BombOne" || child.name == "BombTwo" || child.name == "Score" {
                     child.removeFromParent()
                 }
             }
             saveScore()
-            createGameOverLayer()
+            
+            let fade = SKAction.fadeAlpha(to: 0, duration: 1.5)
+            
+            run(SKAction.sequence([
+                    SKAction.run({self.childNode(withName: "City")?.run(fade)}),
+                    SKAction.wait(forDuration: 1.5),
+                    SKAction.run({self.childNode(withName: "City")?.removeFromParent()}),
+                    SKAction.run(createGameOverLayer)
+                    ])
+            )
         }
         
     }
